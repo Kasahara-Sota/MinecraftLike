@@ -49,6 +49,10 @@ public class FPSPlayer : MonoBehaviour
     {
         _camera = Camera.main;
         _rb = GetComponent<Rigidbody>();
+        _rb.useGravity = false;
+        _isGround = true;
+        Physics.Raycast(new Vector3(0, 200, 0), Vector3.down, out RaycastHit hit, 250, LayerMask.GetMask("Block"));
+        transform.position = hit.point + hit.normal / 10000;
     }
     void Update()
     {
@@ -71,7 +75,11 @@ public class FPSPlayer : MonoBehaviour
     void OnJump(InputAction.CallbackContext context)
     {
         if (_isGround)
+        {
+            _isGround = false;
+            _rb.useGravity = true;
             _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, _jumpPower, _rb.linearVelocity.z);
+        }
     }
     void PlayerMove()
     {
@@ -103,8 +111,17 @@ public class FPSPlayer : MonoBehaviour
     }
     void GroundCheck()
     {
-        _isGround = Physics.Raycast(transform.position + Vector3.up, Vector3.down, out _, 1);
-        _rb.useGravity = !_isGround;
+        _isGround = Physics.Raycast(transform.position + Vector3.up, Vector3.down, out RaycastHit hit, 1.1f);
+        
+        if(!_isGround)
+        {
+            _isGround = true;
+        }
+        if (_isGround && _rb.linearVelocity.y <= 0)
+        {
+            _rb.useGravity = false;
+            transform.position = hit.point + hit.normal / 10000;
+        }
     }
     void WallCheck()
     {
