@@ -39,7 +39,7 @@ public class PutBlock : MonoBehaviour
                 else
                 {
                     yield return null;
-                    //Debug.Log($"{hit.collider.transform.position}‚É‚ ‚é{hit.collider.gameObject.name}‚Ì‚¹‚¢‚Å’u‚¯‚Ü‚¹‚ñ");
+                    Debug.Log($"{hit.collider.transform.position}‚É‚ ‚é{hit.collider.gameObject.name}‚Ì‚¹‚¢‚Å’u‚¯‚Ü‚¹‚ñ");
                 }
             }
             else
