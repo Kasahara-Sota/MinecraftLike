@@ -1,10 +1,11 @@
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class BreakBlock : MonoBehaviour
 {
     [SerializeField] float _distance = 5;
+    [SerializeField] float _breakSpeed = 5;
     Camera _camera;
     PlayerInput _playerInput;
     bool _isBreaking;
@@ -16,21 +17,36 @@ public class BreakBlock : MonoBehaviour
         _playerInput.actions["Attack"].performed += OnBreak;
         _playerInput.actions["Attack"].canceled += OnBreakCanceled;
     }
-
-    // Update is called once per frame
-    void Update()
+    IEnumerator BreakingBlock()
     {
-        if (_isBreaking)
+        BlockBase blockBase = null;
+        Vector3 vector3 = Vector3.zero;
+        while (_isBreaking)
         {
             if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hit, _distance, LayerMask.GetMask("Block")))
             {
-                hit.collider.gameObject.GetComponent<BlockBase>().ReduceEndurance(0.1f);
+                BlockBase NewBlockBase = hit.collider.gameObject.GetComponent<BlockBase>();
+                if(NewBlockBase.transform.position == vector3)
+                {
+                    blockBase.ReduceEndurance(_breakSpeed);
+                }
+                else
+                {
+                    if(blockBase != null)
+                    {
+                        blockBase.ResetEndurance();
+                    }    
+                    blockBase = NewBlockBase;
+                    vector3 = blockBase.transform.position;
+                }
             }
+            yield return null;
         }
     }
     void OnBreak(InputAction.CallbackContext context)
     {
         _isBreaking = true;
+        StartCoroutine(BreakingBlock());
     }
     void OnBreakCanceled(InputAction.CallbackContext context)
     {
