@@ -126,7 +126,7 @@ MonoBehaviour:
   _muzzle: {fileID: 7775301992508391854}
   _bullet: {fileID: 1241691580919479800, guid: 97a8ea40d7d7c7041bb230a3769d3543, type: 3}
   _attackInterval: 3
-  _bulletSpeed: 5
+  _bulletSpeed: 15
 --- !u!114 &1505719791259059423
 MonoBehaviour:
   m_ObjectHideFlags: 0
