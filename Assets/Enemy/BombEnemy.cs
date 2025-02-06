@@ -36,8 +36,8 @@ public class BombEnemy : MonoBehaviour
         if (_timer > _attackInterval)
         {
             _timer = 0;
-            GameObject obj = Instantiate(_bullet,_muzzle.transform.position,Quaternion.identity);
-            obj.GetComponent<Rigidbody>().AddForce((_player.transform.position - _muzzle.transform.position) * _bulletSpeed,ForceMode.Impulse);
+            GameObject obj = Instantiate(_bullet, _muzzle.transform.position, Quaternion.identity);
+            obj.GetComponent<Rigidbody>().AddForce((_player.transform.position - _muzzle.transform.position).normalized * _bulletSpeed, ForceMode.Impulse);
         }
     }
 
