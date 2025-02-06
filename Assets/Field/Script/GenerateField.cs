@@ -1,9 +1,9 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
 public class GenerateField : MonoBehaviour
 {
+    [SerializeField] Vector3Int _generateSize;
     [SerializeField] GameObject _obj;
     [SerializeField] float _xOrigin;
     [SerializeField] float _yOrigin;
@@ -22,14 +22,14 @@ public class GenerateField : MonoBehaviour
         _beforeX = _xOrigin;
         _beforeY = _yOrigin;
         _beforeFlatScale = _flatScale;
-        for (int z = 0; z < 16 * 4; z++)
+        for (int z = 0; z < _generateSize.z; z++)
         {
-            for (int x = 0; x < 16 * 4; x++)
+            for (int x = 0; x < _generateSize.x; x++)
             {
                 float xValue = _xOrigin + x * _flatScale;
                 float yValue = _yOrigin + z * _flatScale;
                 float valueXZ = (int)(Mathf.PerlinNoise(xValue, yValue) * 10);
-                int n = (int)valueXZ + 64;
+                int n = (int)valueXZ + _generateSize.y;
                 valueXZ /= 10;
                 GameObject obj;
                 for (int y = 0; y < n; y++)
