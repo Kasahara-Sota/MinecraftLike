@@ -16,6 +16,7 @@ public class BombEnemy : MonoBehaviour
 
     private void Update()
     {
+        LookPlayer();
         Attack();
     }
     private void OnCollisionEnter(Collision collision)
@@ -24,6 +25,10 @@ public class BombEnemy : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+    void LookPlayer()
+    {
+        transform.LookAt(_player.transform.position);
     }
     private void Attack()
     {
