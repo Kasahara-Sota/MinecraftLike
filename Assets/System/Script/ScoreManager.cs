@@ -22,6 +22,6 @@ public class ScoreManager : MonoBehaviour
     private void AddScore(ulong score)
     {
         _score += score;
-        textMeshPro.text = _score.ToString();
+        textMeshPro.text = _score.ToString("D9");
     }
 }
