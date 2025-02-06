@@ -150,4 +150,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletTag: 1
-  _radius: 5
+  _radius: 3
+  _explosion: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3, type: 3}
