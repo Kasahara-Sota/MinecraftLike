@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         tag = _bulletTag.ToString();
+        Destroy(gameObject,10f);
     }
     private void OnCollisionEnter(Collision collision)
     {
