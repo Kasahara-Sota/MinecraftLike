@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class ScoreManager : MonoBehaviour
     
     void Start()
     {
-        
+        AddScore(0);
     }
 
     void Update()
@@ -22,6 +23,6 @@ public class ScoreManager : MonoBehaviour
     private void AddScore(ulong score)
     {
         _score += score;
-        textMeshPro.text = _score.ToString("D9");
+        textMeshPro.text = "SCORE:" + _score.ToString("D9");
     }
 }
