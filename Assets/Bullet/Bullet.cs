@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
             }
         }
         GameObject obj = Instantiate(_explosion, transform.position, Quaternion.identity);
-        Destroy(obj, 3f);
+        Destroy(obj, 2.5f);
         Destroy(gameObject);
     }
 }
