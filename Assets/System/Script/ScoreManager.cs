@@ -1,12 +1,12 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.SocialPlatforms.Impl;
+using DG.Tweening;
 
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI textMeshPro;
     ulong _score;
-    
+
     void Start()
     {
         AddScore(0);
@@ -14,7 +14,7 @@ public class ScoreManager : MonoBehaviour
 
     void Update()
     {
-        
+
     }
     public void AddEventListener(AddScore addScore)
     {
@@ -22,7 +22,20 @@ public class ScoreManager : MonoBehaviour
     }
     private void AddScore(ulong score)
     {
-        _score += score;
-        textMeshPro.text = "SCORE:" + _score.ToString("D9");
+        ulong startScore = _score;
+        ulong targetScore = _score + score;
+
+        // 既存のアニメーションをキャンセル
+        DOTween.Kill("ScoreTween");
+
+        DOTween.To(() => startScore, x =>
+        {
+            startScore = x;
+            textMeshPro.text = "SCORE:" + startScore.ToString("D9");
+        }, targetScore, 1.0f)
+        .SetEase(Ease.OutQuad)
+        .SetId("ScoreTween"); // IDを設定して管理
+
+        _score = targetScore;
     }
 }
