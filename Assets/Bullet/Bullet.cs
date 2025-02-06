@@ -4,6 +4,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] BulletTag _bulletTag = BulletTag.PlayerBullet;
     [SerializeField] float _radius;
+    [SerializeField] GameObject _explosion;
     public enum BulletTag
     {
         PlayerBullet,
@@ -15,13 +16,23 @@ public class Bullet : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, _radius, Vector3.down, 0.01f, LayerMask.GetMask("Block"));
-        foreach (RaycastHit hit in hits)
+        if (_bulletTag == BulletTag.PlayerBullet)
         {
-            Debug.Log($"Destroy {hit.collider.name}");
-            Destroy(hit.collider.gameObject);
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                Destroy(collision.gameObject);
+            }
         }
+        else
+        {
+            RaycastHit[] hits = Physics.SphereCastAll(transform.position, _radius, Vector3.down, 0.01f, LayerMask.GetMask("Block"));
+            foreach (RaycastHit hit in hits)
+            {
+                Destroy(hit.collider.gameObject);
+            }
+        }
+        GameObject obj = Instantiate(_explosion, transform.position, Quaternion.identity);
+        Destroy(obj, 3f);
         Destroy(gameObject);
     }
 }
