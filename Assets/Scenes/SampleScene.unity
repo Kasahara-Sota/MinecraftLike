@@ -830,34 +830,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2354078627972035859, guid: c12736a144c24ea47a85ea17eaa77808, type: 3}
-      propertyPath: m_text
-      value: SCORE:000000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2354078627972035859, guid: c12736a144c24ea47a85ea17eaa77808, type: 3}
-      propertyPath: m_fontSize
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 2354078627972035859, guid: c12736a144c24ea47a85ea17eaa77808, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 2354780467485439693, guid: c12736a144c24ea47a85ea17eaa77808, type: 3}
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 2633330457927328410, guid: c12736a144c24ea47a85ea17eaa77808, type: 3}
-      propertyPath: m_UiScaleMode
-      value: 1
+    - target: {fileID: 3079518293167648024, guid: c12736a144c24ea47a85ea17eaa77808, type: 3}
+      propertyPath: _radius
+      value: 70
       objectReference: {fileID: 0}
-    - target: {fileID: 3428717006519548381, guid: c12736a144c24ea47a85ea17eaa77808, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 295
-      objectReference: {fileID: 0}
-    - target: {fileID: 3428717006519548381, guid: c12736a144c24ea47a85ea17eaa77808, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 200
-      objectReference: {fileID: 0}
+    - target: {fileID: 3079518293167648024, guid: c12736a144c24ea47a85ea17eaa77808, type: 3}
+      propertyPath: _visualGuide
+      value: 
+      objectReference: {fileID: 1437562641526301077, guid: 31616f18261421246b4f1503945d0acd, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

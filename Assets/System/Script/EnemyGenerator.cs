@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyGenerator : MonoBehaviour
@@ -8,6 +9,7 @@ public class EnemyGenerator : MonoBehaviour
     [SerializeField] Vector3 _center;
     [SerializeField] Vector3 _size;
     ScoreManager _scoreManager;
+    EnemyVisible _enemyVisible;
     float _xStartRange;
     float _yStartRange;
     float _zStartRange;
@@ -23,6 +25,7 @@ public class EnemyGenerator : MonoBehaviour
         _yEndRange = _center.y + _size.y / 2;
         _zEndRange = _center.z + _size.z / 2;
         _scoreManager = GameObject.FindAnyObjectByType<ScoreManager>();
+        _enemyVisible = GameObject.FindAnyObjectByType<EnemyVisible>();
         StartCoroutine(Generate());
     }
     private void Update()
@@ -38,8 +41,14 @@ public class EnemyGenerator : MonoBehaviour
                                       Random.Range(_zStartRange, _zEndRange));
             GameObject obj = Instantiate(_enemy, pos, Quaternion.identity);
             _scoreManager.AddEventListener(obj.GetComponent<AddScore>());
+            _enemyVisible.AddVisualGuide(obj.transform);
+            obj.GetComponent<BombEnemy>()._onDestroy += EnemyDestroyed;
             yield return new WaitForSeconds(_generateInterval);
         }
+    }
+    private void EnemyDestroyed(Transform transform)
+    {
+        _enemyVisible.RemoveVisualGuide(transform);
     }
     private void OnDrawGizmosSelected()
     {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +8,13 @@ public class BombEnemy : MonoBehaviour
     [SerializeField] GameObject _bullet;
     [SerializeField] float _attackInterval = 10f;
     [SerializeField] float _bulletSpeed = 5f;
+    public event Action<Transform> _onDestroy;
     float _timer;
     GameObject _player;
+    private void OnDisable()
+    {
+        _onDestroy?.Invoke(transform);
+    }
     private void Start()
     {
         _player = GameObject.FindAnyObjectByType<PlayerController>().gameObject;
