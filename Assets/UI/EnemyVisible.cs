@@ -38,9 +38,15 @@ public class EnemyVisible : MonoBehaviour
     }
     public void RemoveVisualGuide(Transform enemyTransform)
     {
-        GameObject obj = _visualGuides[0].gameObject;
-        _visualGuides.RemoveAt(0);
-        Destroy(obj);
-        _enemiesTransform.Remove(enemyTransform);
+        if(_visualGuides[0] != null)
+        {
+            GameObject obj = _visualGuides[0].gameObject;
+            _visualGuides.RemoveAt(0);
+            if (obj != null)
+            {
+                Destroy(obj);
+            }
+            _enemiesTransform.Remove(enemyTransform);
+        }
     }
 }
