@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
     {
         _playerInput = GetComponent<PlayerInput>();
         _camera = Camera.main;
-        Cursor.lockState = CursorLockMode.Locked;
     }
     private void OnEnable()
     {
