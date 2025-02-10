@@ -14,6 +14,10 @@ public class ShootBullet : MonoBehaviour
         _playerInput = GetComponent<PlayerInput>();
         _playerInput.actions["Interact"].performed += OnShoot;
     }
+    private void OnDisable()
+    {
+        _playerInput.actions["Interact"].performed -= OnShoot;
+    }
     void OnShoot(InputAction.CallbackContext context)
     {
         GameObject obj = Instantiate(_bulletPrefab, _muzzle.transform.position, Quaternion.identity);

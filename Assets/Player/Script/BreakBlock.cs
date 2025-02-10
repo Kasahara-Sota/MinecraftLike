@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,11 @@ public class BreakBlock : MonoBehaviour
         _playerInput = GetComponent<PlayerInput>();
         _playerInput.actions["Attack"].performed += OnBreak;
         _playerInput.actions["Attack"].canceled += OnBreakCanceled;
+    }
+    void OnDisable()
+    {
+        _playerInput.actions["Attack"].performed -= OnBreak;
+        _playerInput.actions["Attack"].canceled -= OnBreakCanceled;
     }
     IEnumerator BreakingBlock()
     {
