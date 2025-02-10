@@ -11,7 +11,7 @@ public class BombEnemy : MonoBehaviour
     public event Action<Transform> _onDestroy;
     float _timer;
     GameObject _player;
-    private void OnDisable()
+    private void OnDestroy()
     {
         _onDestroy?.Invoke(transform);
     }
