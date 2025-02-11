@@ -22,5 +22,6 @@ public class ShootBullet : MonoBehaviour
     {
         GameObject obj = Instantiate(_bulletPrefab, _muzzle.transform.position, Quaternion.identity);
         obj.GetComponent<Rigidbody>().AddForce(_camera.transform.forward * _bulletSpeed, ForceMode.Impulse);
+        AudioManager.Audio.PlaySE("Shoot");
     }
 }
