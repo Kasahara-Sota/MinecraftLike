@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -37,11 +38,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
-        Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 50, LayerMask.GetMask("Block"));
-        if (hit.collider != null)
-        {
-            transform.position = hit.point;
-        }
+        StartCoroutine(PlayerOnGround());
     }
 
     // Update is called once per frame
@@ -49,6 +46,18 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         PlayerRotate();
+    }
+    IEnumerator PlayerOnGround()
+    {
+        RaycastHit hit;
+        while (!Physics.Raycast(transform.position, Vector3.down, out hit, 50, LayerMask.GetMask("Block")))
+        {
+            yield return null;
+        }
+        if (hit.collider != null)
+        {
+            transform.position = hit.point;
+        }
     }
     private void Move()
     {
