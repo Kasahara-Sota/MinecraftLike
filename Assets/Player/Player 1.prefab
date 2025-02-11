@@ -521,7 +521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   jumpSpeed: 10
-  gravity: 40
+  gravity: 20
   _isGround: 0
   _body: {fileID: 1686935366174839815}
 --- !u!114 &573617083007802879
