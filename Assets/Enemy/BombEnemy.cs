@@ -39,7 +39,7 @@ public class BombEnemy : MonoBehaviour
     private void Attack()
     {
         _timer += Time.deltaTime;
-        if (_timer > _attackInterval)
+        if (_timer > _attackInterval && GameOverChecker.IsGameOver == false)
         {
             _timer = 0;
             GameObject obj = Instantiate(_bullet, _muzzle.transform.position, Quaternion.identity);
