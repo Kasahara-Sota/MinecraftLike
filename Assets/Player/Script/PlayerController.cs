@@ -37,6 +37,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
+        Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 50, LayerMask.GetMask("Block"));
+        if (hit.collider != null)
+        {
+            transform.position = hit.point;
+        }
     }
 
     // Update is called once per frame
