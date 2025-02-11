@@ -18,6 +18,7 @@ public class BombEnemy : MonoBehaviour
     private void Start()
     {
         _player = GameObject.FindAnyObjectByType<PlayerController>().gameObject;
+        AudioManager.Audio.PlaySE("EnemySpawn");
     }
 
     private void Update()
