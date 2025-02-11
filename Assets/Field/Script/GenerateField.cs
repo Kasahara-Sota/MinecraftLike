@@ -11,7 +11,7 @@ public class GenerateField : MonoBehaviour
     [SerializeField] float _holeSize = 8;
     [SerializeField] float _DonutSize = 16;
     [SerializeField] float _generateSpeed = 1;
-    void Start()
+    void Awake()
     {
         //StartCoroutine(Generate());
         Generate();
