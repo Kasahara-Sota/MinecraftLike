@@ -8,8 +8,7 @@ public class EnemyGenerator : MonoBehaviour
     [SerializeField] float _generateInterval;
     [SerializeField] float _decreaseInterval = 0.02f;
     [SerializeField] float _generateAmount = 1;
-    [SerializeField] Vector3 _center;
-    [SerializeField] Vector3 _size;
+    [SerializeField] List<GenerateArea> _areas;
     ScoreManager _scoreManager;
     EnemyVisible _enemyVisible;
     float _xStartRange;
@@ -18,28 +17,36 @@ public class EnemyGenerator : MonoBehaviour
     float _xEndRange;
     float _yEndRange;
     float _zEndRange;
+    [System.Serializable]
+    public struct GenerateArea
+    {
+        public Vector3 Center;
+        public Vector3 Size;
+    }
     private void Start()
     {
-        _xStartRange = _center.x - _size.x / 2;
-        _yStartRange = _center.y - _size.y / 2;
-        _zStartRange = _center.z - _size.z / 2;
-        _xEndRange = _center.x + _size.x / 2;
-        _yEndRange = _center.y + _size.y / 2;
-        _zEndRange = _center.z + _size.z / 2;
         _scoreManager = GameObject.FindAnyObjectByType<ScoreManager>();
         _enemyVisible = GameObject.FindAnyObjectByType<EnemyVisible>();
         StartCoroutine(Generate());
     }
-    private void Update()
+    private void SetRange(Vector3 center,Vector3 size)
     {
-
+        _xStartRange = center.x - size.x / 2;
+        _yStartRange = center.y - size.y / 2;
+        _zStartRange = center.z - size.z / 2;
+        _xEndRange = center.x + size.x / 2;
+        _yEndRange = center.y + size.y / 2;
+        _zEndRange = center.z + size.z / 2;
     }
     private IEnumerator Generate()
     {
-        while (true)
+        yield return null;
+        while (GameOverChecker.IsGameOver == false)
         {
             for (float i = 0.5f; i < Random.Range(1, _generateAmount); i++)
             {
+                GenerateArea area = _areas[Random.Range(0,_areas.Count)];
+                SetRange(area.Center, area.Size);
                 Vector3 pos = new Vector3(Random.Range(_xStartRange, _xEndRange),
                           Random.Range(_yStartRange, _yEndRange),
                           Random.Range(_zStartRange, _zEndRange));
@@ -68,6 +75,9 @@ public class EnemyGenerator : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(255, 0, 0, 10);
-        Gizmos.DrawCube(_center, _size);
+        foreach(GenerateArea generateArea in _areas)
+        {
+            Gizmos.DrawCube(generateArea.Center, generateArea.Size);
+        }
     }
 }
