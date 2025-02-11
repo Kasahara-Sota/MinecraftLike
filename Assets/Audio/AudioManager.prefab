@@ -58,3 +58,9 @@ MonoBehaviour:
     SE: {fileID: 8300000, guid: b4a708f95e06b9841850965e2e4789f1, type: 3}
   - Name: Boom
     SE: {fileID: 8300000, guid: d7dd3e5ddb360d648b6aa2e9f44dc2e9, type: 3}
+  - Name: EnemySpawn
+    SE: {fileID: 8300000, guid: a37f064a5a1f6eb4b9819a5d3fa86759, type: 3}
+  - Name: Cancel
+    SE: {fileID: 8300000, guid: 73341c06c47576c4db69d5f4244f481f, type: 3}
+  - Name: Decide
+    SE: {fileID: 8300000, guid: 6d7b512b9e31fa3499ef2ce700ab8765, type: 3}
