@@ -9,8 +9,8 @@ public class BombEnemy : MonoBehaviour
     [SerializeField] float _attackInterval = 10f;
     [SerializeField] float _bulletSpeed = 5f;
     public event Action<Transform> _onDestroy;
-    float _timer;
-    GameObject _player;
+    private float _timer;
+    private GameObject _player;
     private void OnDestroy()
     {
         _onDestroy?.Invoke(transform);
@@ -32,7 +32,7 @@ public class BombEnemy : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    void LookPlayer()
+    private void LookPlayer()
     {
         transform.LookAt(_player.transform.position);
     }
@@ -44,7 +44,7 @@ public class BombEnemy : MonoBehaviour
             _timer = 0;
             GameObject obj = Instantiate(_bullet, _muzzle.transform.position, Quaternion.identity);
             obj.GetComponent<Rigidbody>().AddForce((_player.transform.position - _muzzle.transform.position).normalized * _bulletSpeed, ForceMode.Impulse);
+            _attackInterval = UnityEngine.Random.Range(7.5f,12.5f);
         }
     }
-
 }
