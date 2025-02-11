@@ -35,5 +35,6 @@ public class Bullet : MonoBehaviour
         GameObject obj = Instantiate(_explosion, transform.position, Quaternion.identity);
         Destroy(obj, 2f);
         Destroy(gameObject);
+        AudioManager.Audio.PlaySE("Explosion");
     }
 }
