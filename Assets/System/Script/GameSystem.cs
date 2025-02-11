@@ -11,6 +11,10 @@ public class GameSystem : MonoBehaviour
         _gameOverChecker = FindAnyObjectByType<GameOverChecker>();
         _gameOverChecker.OnGameOver += UnlockCursor;
     }
+    private void Start()
+    {
+        AudioManager.Audio.PlayBGM("InGameBGM");
+    }
     void UnlockCursor()
     {
         Cursor.lockState = CursorLockMode.Confined;
