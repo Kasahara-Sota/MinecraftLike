@@ -5,12 +5,11 @@ public class GenerateField : MonoBehaviour
 {
     [SerializeField] Vector3Int _generateSize;
     [SerializeField] GameObject _obj;
-    [SerializeField] float _xOrigin;
-    [SerializeField] float _yOrigin;
-    float _beforeX;
-    float _beforeY;
+    private float _xOrigin;
+    private float _yOrigin;
     [SerializeField, Range(0.0001f, 1)] float _flatScale;
-    float _beforeFlatScale;
+    [SerializeField] float _holeSize = 8;
+    [SerializeField] float _DonutSize = 16;
     [SerializeField] float _generateSpeed = 1;
     void Start()
     {
@@ -19,20 +18,24 @@ public class GenerateField : MonoBehaviour
     }
     void Generate()
     {
-        _beforeX = _xOrigin;
-        _beforeY = _yOrigin;
-        _beforeFlatScale = _flatScale;
+        _xOrigin = UnityEngine.Random.Range(-10000,10000);
+        _yOrigin = UnityEngine.Random.Range(-10000, 10000);
+        Debug.Log($"{_xOrigin},{_yOrigin}");
         for (int z = 0; z < _generateSize.z; z++)
         {
             for (int x = 0; x < _generateSize.x; x++)
             {
+                float distanceFromCenter = Vector2.Distance(new Vector2(x, z), new Vector2(_generateSize.x / 2, _generateSize.z / 2));
+                if (distanceFromCenter < _holeSize || distanceFromCenter > _DonutSize)
+                {
+                    continue;
+                }
                 float xValue = _xOrigin + x * _flatScale;
                 float yValue = _yOrigin + z * _flatScale;
                 float valueXZ = (int)(Mathf.PerlinNoise(xValue, yValue) * 10);
                 int n = (int)valueXZ + _generateSize.y;
-                valueXZ /= 10;
                 GameObject obj;
-                for (int y = 0; y < n; y++)
+                for (int y = (int)valueXZ; y < n; y++)
                 {
                     obj = Instantiate(_obj, new Vector3(x, y, z), Quaternion.identity);
                     obj.transform.SetParent(transform);
@@ -46,24 +49,4 @@ public class GenerateField : MonoBehaviour
     //{
 
     //}
-    void Update()
-    {
-        if (_beforeX != _xOrigin || _beforeY != _yOrigin || _beforeFlatScale != _flatScale)
-            for (int z = 0; z < 64; z++)
-            {
-                for (int x = 0; x < 64; x++)
-                {
-                    float xValue = _xOrigin + x * _flatScale;
-                    float yValue = _yOrigin + z * _flatScale;
-                    float value = (int)(Mathf.PerlinNoise(xValue, yValue) * 10);
-                    transform.GetChild(z * 64 + x).position = new Vector3(x, value, z);
-                    value /= 10;
-                    transform.GetChild(z * 64 + x).gameObject.GetComponent<Renderer>().material.color = new Color(value, value * 2, value, 1);
-
-                }
-            }
-        _beforeX = _xOrigin;
-        _beforeY = _yOrigin;
-        _beforeFlatScale = _flatScale;
-    }
 }
