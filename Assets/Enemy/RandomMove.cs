@@ -13,6 +13,14 @@ public class RandomMove : MonoBehaviour
     float _xEndRange;
     float _yEndRange;
     float _zEndRange;
+    Tweener currentTween;
+    private void OnDestroy()
+    {
+        if (currentTween != null)
+        {
+            currentTween.Kill(); // オブジェクト破棄時にTweenも消す
+        }
+    }
     private void Start()
     {
         _center = transform.position + _offset;
@@ -28,11 +36,19 @@ public class RandomMove : MonoBehaviour
     {
         while (true)
         {
+            if (currentTween != null)
+            {
+                currentTween.Kill(); // 古いTweenを削除
+            }
             Vector3 pos = new Vector3(Random.Range(_xStartRange, _xEndRange),
                                       Random.Range(_yStartRange, _yEndRange),
                                       Random.Range(_zStartRange, _zEndRange));
-            transform.DOMove(pos,Random.Range(1,_moveInterval)).SetEase(Ease.InOutQuad);
+            currentTween = transform.DOMove(pos,Random.Range(1,_moveInterval)).SetEase(Ease.InOutQuad);
             yield return new WaitForSeconds(_moveInterval);
+            if (currentTween != null)
+            {
+                yield return currentTween.WaitForCompletion();
+            }
         }
     }
 }
