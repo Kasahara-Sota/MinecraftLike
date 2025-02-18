@@ -62,4 +62,8 @@ public class AudioManager : MonoBehaviour
         _audioSource.Play();
         _audioSource.loop = true;
     }
+    public void StopBGM()
+    {
+        _audioSource?.Stop();
+    }
 }
